@@ -1,0 +1,121 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[sigconf]{acmart}
+\captionsetup{font=footnotesize}
+\usepackage{graphicx}
+
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+%%\pagestyle{plain} % removes running headers
+\thispagestyle{empty}
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+    \providecommand\BibTeX{{%
+        \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+\setcopyright{none}
+\copyrightyear{}
+\acmYear{}
+\acmDOI{}
+
+\acmConference[Computer Science]{}{University of Salerno}{UNISA}
+\acmBooktitle{Privacy concerns in IoT systems with the use of AI techniques}
+\acmPrice{}
+\acmISBN{}
+
+\begin{document}
+
+    \title{[Status Report] Privacy concerns in IoT systems with the use of AI techniques}
+
+
+    \author{Fabio Palomba}
+    \email{fpalomba@unisa.it}
+    \affiliation{
+        \institution{Universit\'a degli studi di Salerno}
+        \streetaddress{}
+        \city{Salerno}
+        \state{}
+        \country{Italy}
+        \postcode{}
+    }
+
+    \author{Giammaria Giordano}
+    \email{ggiordano@unisa.it}
+    \affiliation{%
+        \institution{Universit\'a degli studi di Salerno}
+        \streetaddress{}
+        \city{Salerno}
+        \state{}
+        \country{Italy}
+        \postcode{}
+    }
+
+    \author{Biagio Boi}
+    \email{b.boi@studenti.unisa.it}
+    \author{Gigi Jr Del Monaco}
+    \email{g.delmonaco1@studenti.unisa.it}
+    \affiliation{
+        \institution{Universit\'a degli studi di Salerno}
+        \streetaddress{}
+        \city{Salerno}
+        \state{}
+        \country{Italy}
+        \postcode{}
+    }
+
+   
+
+    \begin{teaserfigure}
+        \rule{\linewidth}{1mm}
+%%  \includegraphics[width=\textwidth]{sampleteaser}
+%%  \caption{Insert text here}
+%%  \Description{insert description here}
+%%  \label{fig:teaser}
+    \end{teaserfigure}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+    \maketitle
+
+
+    \section{Introduction}
+    The evolution of smart devices over last years has increased exponentially and the introduction of these devices in the house is progressively growing.
+    The major problem related to these devices is that usually the privacy is not considered, although there are a lot of regulations (just see the GDPR) that describe how the user data have to be stored and who can access to these data.
+    Starting from these two points We've decided to understand what happens within the context of smart assistance. The final idea is to develop a tool able to preserve the privacy of the users.
+
+\section{Objective}
+The goal of the project is to develop a tool based on a ML model able to preserve privacy during the information exchange in the IoT context, by analyzing the packets sent over the network.
+
+\section{Methodology}
+In order to implement the tool, we've decided to follow each of these steps:
+\begin{enumerate}
+\item Consider the current state of art in order to retrieve useful informations. This step is important to produce knowledge to better perform the next steps;
+\item Analyze the existing datasets to achieve feature engineering;
+\item Apply normalization techniques (data cleaning, data balancing);
+\item Implementation and training of a ML model by considering different approaches to find the best fit model for our problem. Looking to the context related projects is most likely that we're going to focus on a Neural Network by using Keras;
+\item Analyze, monitor and compare the results of each model by using ML Flow tool;
+\item Develop a real time tool based on this model.
+\end{enumerate}
+Clearly, all these steps will be conducted using a MLOps approach.
+
+\section{Performed Activities}
+We've started to consider all the related works for the domain of the problem; we're currently analyzing the existing dataset.
+\section{Planned Activities - Milestones}
+\begin{itemize}
+\item May 24 - Analyze the existing dataset;
+\item May 28 - Feature engineering process;
+\item May 31 - Data cleaning and balancing;
+\item June 5 - Implementation, training and analysis of each approach;
+\item June 9 - Develop a tool based on the best fit model.
+\end{itemize}
+
+    \bibliographystyle{plain}
+    \bibliography{biblio_ref}
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigconf.tex'.
