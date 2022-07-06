@@ -97,6 +97,7 @@ def filter_packets(p, mac_add, writer, microphone, synchronized):
 
 if __name__ == "__main__":
     # insert here the name of the internet interface you want to sniff and mac address of device to sniff
+    # for the project the interface has been substitute from the pcap files
     # capture = pyshark.LiveCapture(interface='Connessione alla rete locale (LAN)* 11')
 
     # make Path object from input string
@@ -105,7 +106,6 @@ if __name__ == "__main__":
     # iter the directory
     for p in path.iterdir():
         if p.is_file():
-            print(p.name)
             capture = pyshark.FileCapture(path_string + "/" + p.name)
             mac_address = "4c:ef:c0:03:f2:38"
             with open('capture_csv_translated/sean_kennedy/' + p.name + '.csv', 'a+', encoding='UTF8', newline='') as f:
