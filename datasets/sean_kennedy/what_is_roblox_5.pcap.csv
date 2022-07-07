@@ -1,3 +1,4 @@
+date,length,dst,dstport,highest_layer,delta,ack_flag,microphone,content_type,sychronized,class
 2018-11-27 00:37:30.020056,100,52.94.235.50,443,3.0,0,1,1,23,1,syn
 2018-11-27 00:37:57.732503,287,52.94.235.50,443,3.0,0,1,1,23,1,expected
 2018-11-27 00:37:57.732795,190,52.94.235.50,443,3.0,0,1,1,23,1,expected

@@ -1,3 +1,4 @@
+date,length,dst,dstport,highest_layer,delta,ack_flag,microphone,content_type,sychronized,class
 2018-11-05 20:40:27.310152,66,13.35.87.104,80,1.0,2735517011,1,1,,1,ack
 2018-11-05 20:40:27.317060,74,13.35.87.104,80,1.0,2735527418,0,1,,1,retransmit
 2018-11-05 20:40:27.363589,66,13.35.87.104,80,1.0,46,1,1,,1,ack

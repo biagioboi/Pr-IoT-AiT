@@ -18,8 +18,6 @@ def filter_packets(p, mac_add, writer, microphone, synchronized):
         packet_len = p.captured_length
         delta = 0
         content_type = None
-        print(packet_len)
-        print(highest_layer)
         if highest_layer == "SSL" or highest_layer == "TLS":
             content_type = int(p[highest_layer].record_content_type)
             # 20 means change spec cipher 21 or 22 means handshake
@@ -90,7 +88,6 @@ def filter_packets(p, mac_add, writer, microphone, synchronized):
         for x in record:
             values.append(record[x])
         writer.writerow(values)
-        print(json.dumps(record, indent=2, default=str) + "\n")
     except AttributeError:
         print(p[highest_layer].field_names)
 
@@ -101,15 +98,16 @@ if __name__ == "__main__":
     # capture = pyshark.LiveCapture(interface='Connessione alla rete locale (LAN)* 11')
 
     # make Path object from input string
-    path_string = 'capture_files/sean_kennedy'
+    path_string = 'capture_files/haipeng_li'
     path = Path(path_string)
     # iter the directory
     for p in path.iterdir():
         if p.is_file():
             capture = pyshark.FileCapture(path_string + "/" + p.name)
-            mac_address = "4c:ef:c0:03:f2:38"
-            with open('capture_csv_translated/sean_kennedy/' + p.name + '.csv', 'a+', encoding='UTF8', newline='') as f:
+            mac_address = "c4:95:00:e3:93:2f"
+            with open('capture_csv_translated/haipeng_li/' + p.name + '.csv', 'a+', encoding='UTF8', newline='') as f:
                 writer = csv.writer(f)
+                writer.writerow(['date', 'length', 'dst', 'dstport', 'highest_layer', 'delta', 'ack_flag', 'microphone', 'content_type', 'sychronized', 'class'])
                 for packet in capture:
                     filter_packets(packet, mac_address, writer, 1, 1)
 
