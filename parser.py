@@ -64,6 +64,12 @@ def filter_packets(p, mac_add, writer, microphone, synchronized):
                 kind_of_packet = "not_relevant"
         else: # no important packet has been recorded, we can return
             return None
+        # unable to classify packet
+        if highest_layer is None:
+            # Implement a mechanism to alert the programmer that should check this behavior
+            # and change the rules
+            print("Unable to classify this packet")
+            return None
         # store the time (in milliseconds) occurred from the last communication with the same server
         delta = 0
         if highest_layer == "TCP" or highest_layer == "SSL":
@@ -96,18 +102,23 @@ if __name__ == "__main__":
     # insert here the name of the internet interface you want to sniff and mac address of device to sniff
     # for the project the interface has been substitute from the pcap files
     # capture = pyshark.LiveCapture(interface='Connessione alla rete locale (LAN)* 11')
+    dataset_name = "sean_kennedy"  # to pick as param
+    alexa_mac = "4c:ef:c0:03:f2:38"  # to pick as param
+    mic_status = 1  # to pick as param
+
+    # to pick as param also if check from file or from live capture, in this case choose interface name
 
     # make Path object from input string
-    path_string = 'capture_files/haipeng_li'
+    path_string = 'capture_files/' + dataset_name
     path = Path(path_string)
     # iter the directory
     for p in path.iterdir():
         if p.is_file():
             capture = pyshark.FileCapture(path_string + "/" + p.name)
-            mac_address = "c4:95:00:e3:93:2f"
-            with open('capture_csv_translated/haipeng_li/' + p.name + '.csv', 'a+', encoding='UTF8', newline='') as f:
+            mac_address = alexa_mac
+            with open('datasets/' + dataset_name + '/' + p.name + '.csv', 'a+', encoding='UTF8', newline='') as f:
                 writer = csv.writer(f)
-                writer.writerow(['date', 'length', 'dst', 'dstport', 'highest_layer', 'delta', 'ack_flag', 'microphone', 'content_type', 'sychronized', 'class'])
+                writer.writerow(['date', 'length', 'dstip', 'dstport', 'highest_layer', 'delta', 'ack_flag', 'microphone', 'content_type', 'synchronized', 'class'])
                 for packet in capture:
-                    filter_packets(packet, mac_address, writer, 1, 1)
+                    filter_packets(packet, mac_address, writer, mic_status, 1)
 

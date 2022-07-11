@@ -27,7 +27,7 @@
 
 \begin{document}
 
-    \title{[Status Report] Privacy concerns in IoT systems with the use of AI techniques}
+    \title{Privacy concerns in IoT systems with the use of AI techniques}
 
 
     \author{Fabio Palomba}
@@ -80,14 +80,22 @@
 %% information and builds the first part of the formatted document.
     \maketitle
 
+	\section{Abstract}
+	The work tries to discover problems related to privacy in IoT systems; in particular those which make use of smart assistances like Alexa or Google Home. 
+	The project studies all the existing works in order to understand if these systems have a good level of reliability and integration between each other. A complete refactoring of a  system has been proposed; in particular by thinking about the MLOps paradigm, which guarantee a good degree of control.
 
     \section{Introduction}
     The evolution of smart devices over last years has increased exponentially and the introduction of these devices in the house is progressively growing.
     The major problem related to these devices is that usually the privacy is not considered, although there are a lot of regulations (just see the GDPR) that describe how the user data have to be stored and who can access to these data.
-    Starting from these two points We've decided to understand what happens within the context of smart assistance. The final idea is to develop a tool able to preserve the privacy of the users.
+    Starting from these two points we've decided to understand what happens within the context of smart assistance.
+    Various projects have been developed and all these projects try to discover a correlation between packets and possible patterns to discover the conversations and the presence of someone inside the home; which can be seen as serious privacy violation. 
 
-\section{Objective}
-The goal of the project is to develop a tool based on a ML model able to preserve privacy during the information exchange in the IoT context, by analyzing the packets sent over the network.
+\section{Goal of the project}
+The goal of the project is to assess the reliability of developed projects; in particular, an initial possible integration has been evaluated and consequentially; since this integration has not been possible, a comparison between dataset and pipeline automation has been proposed. 
+
+\section{Methodological steps conducted to address the goals}
+\subsection{First comparison between projects}
+As introduced, the project started with the comparison among already developed projects and datasets in order to extract important feature from each project. The first considered project has been that one developed by Kennedy et al. \cite{Kennedy}, which examine a passive attack on home smart speaker able to infer users' voice commands. The project focuses on a particular metric, the so called semantic distance. Anche se questo progetto si è focalizzato su un punto importante della privacy; il ragionamento che sta dietro al calcolo fatto per trovare la distanza semantica sembra essere abbastanza complicato; per questo motivo l'idea di estendere tale progetto è stata trascurata. Il secondo progetto considerato è quello di Alexa real time analyzer che ci offre una visione più ampia sui dati catturati dalla rete e sulle metriche considerate
 
 \section{Methodology}
 In order to implement the tool, we've decided to follow each of these steps:
@@ -100,17 +108,6 @@ In order to implement the tool, we've decided to follow each of these steps:
 \item Develop a real time tool based on this model.
 \end{enumerate}
 Clearly, all these steps will be conducted using a MLOps approach.
-
-\section{Performed Activities}
-We've started to consider all the related works for the domain of the problem; we're currently analyzing the existing dataset.
-\section{Planned Activities - Milestones}
-\begin{itemize}
-\item May 24 - Analyze the existing dataset;
-\item May 28 - Feature engineering process;
-\item May 31 - Data cleaning and balancing;
-\item June 5 - Implementation, training and analysis of each approach;
-\item June 9 - Develop a tool based on the best fit model.
-\end{itemize}
 
     \bibliographystyle{plain}
     \bibliography{biblio_ref}
