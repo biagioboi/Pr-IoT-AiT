@@ -47,7 +47,8 @@ for y in dataset:
 
 # Feature Engineering
 for y in dataset:
-    dataset[y] = dataset[y].drop(columns=['date', 'dstip'])
+    dataset[y] = dataset[y].drop(columns=['date', 'dstip', 'synchronized'
+                                                           ''])
 
 # store the three dataset individually and then store the full dataset
 to_concat = []
