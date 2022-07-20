@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from imblearn.over_sampling import SMOTE
 from collections import Counter
-from sklearn.model_selection import train_test_split, KFold, cross_validate
+from sklearn.model_selection import KFold
 from sklearn import preprocessing
 from sklearn import metrics
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
@@ -37,7 +37,16 @@ def eval_metrics(actual, pred):
 models = [{"model_name": "KNN",
            "instance": "KNeighborsClassifier(n_neighbors=7, metric='minkowski', p=2)",
            "params": [{"k": "7"}, {"p": "2"}]
-           }]
+           },
+          {"model_name": "KNN",
+           "instance": "KNeighborsClassifier(n_neighbors=7, metric='minkowski', p=4)",
+           "params": [{"k": "7"}, {"p": "4"}]
+           },
+          {"model_name": "OneVsRest",
+           "instance": "OneVsRestClassifier(LinearSVC(random_state=6, max_iter=20000))",
+           "params": []
+           }
+          ]
 
 for model in models:
     with mlflow.start_run():
