@@ -94,6 +94,15 @@
 The goal of the project is to assess the reliability of developed projects; in particular, an initial possible integration has been evaluated and consequentially; since this integration has not been possible, a comparison between dataset and pipeline automation has been proposed. 
 
 \section{Methodological steps conducted to address the goals}
+In order to implement the tool, we've decided to follow each of these steps:
+\begin{enumerate}
+\item Consider the current state of art in order to retrieve useful informations. This step is important to produce knowledge to better perform the next steps;
+\item Analyze the existing datasets to achieve feature engineering;
+\item Apply normalization techniques (data cleaning, data balancing);
+\item Implementation and training of a ML model by considering different approaches to find the best fit model for our problem;
+\item Analyze, monitor and compare the results of each model by using ML Flow tool.
+\end{enumerate}
+Clearly, all these steps will be conducted using a MLOps approach.
 \subsection{First comparison between projects}
 As introduced, the project started with the comparison among already developed projects and datasets in order to extract important feature from each project. The first considered project has been that one developed by Kennedy et al. \cite{Kennedy}, which examine a passive attack on home smart speaker able to infer users' voice commands. The project focuses on a particular metric, the so called semantic distance.Even if this project has a focus on a critical point of privacy, it seems  quite complicated find out the reasoning inside the semantic distance; that's why we have decided to not extend this project. The second project considered is "Alexa real time analyzer" which give us a better vision on caught data from network and considered metrics; the model created from this project seems to be powerful on data retrieved by the creator; for this reason we want to assess if the model works good also on other data.
 \subsection{Dataset Creation}
@@ -158,7 +167,7 @@ Once we removed the not relevant feature, we need to balance the dataset; since 
 \begin{figure}[h!]
         \includegraphics[width=0.8\linewidth]{img/sean_kennedy.png}
         \caption{Distribution of Sean Kennedy dataset}
-        \label{fig:parser}
+        \label{fig:sean_kennedy}
     \end{figure}
 A direct application of SMOTE technique is useless at this time since there are too much diversity in data distribution. For this reason do some considerations on these particular instances, that might be true in general:
 \begin{itemize}
@@ -170,27 +179,45 @@ The following pie chart shows the new distribution of the conjunction of all thr
 \begin{figure}[h!]
         \includegraphics[width=0.8\linewidth]{img/final.png}
         \caption{Distribution of final dataset}
-        \label{fig:parser}
+        \label{fig:final}
     \end{figure}
     
 Now, after deleting the extra data, which are not good for our purpose, we can now apply SMOTE technique to better balance the final dataset.
 \begin{figure}[h!]
         \includegraphics[width=0.8\linewidth]{img/final_smote.png}
         \caption{Distribution of final dataset after applying SMOTE}
-        \label{fig:parser}
+        \label{fig:final_smote}
     \end{figure}
+\subsection{MLFlow}
+After solved the problem with dataset, we started experiment using MLFlow framework.
+We started using the tools by creating an experiment for each dataset in order to understand how the models fit the data.
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/experiments.png}
+        \caption{Created Experiments on MLFlow}
+        \label{fig:experiments}
+    \end{figure}
+In particular, in order to assess the quality of our dataset and models we applied a k-cross fold validation. After some experimentation, we discovered that k=10 is the best value for the number of folds to generate. Then, different classifiers have been applied:
+\begin{itemize}
+\item \textbf{KNeighborsClassifier} - with number of neighbors equals to 7, since we have 7 classes to distinguish and variable Minkowski metric parameters (2 and 4)
+\item \textbf{RandomForestClassifier} - with number of estimators variable (200 or 500)
+\item \textbf{GaussianNB}
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/full_dataset_experiment.png}
+        \caption{Full Dataset Experiment on MLFlow}
+        \label{fig:full_dataset_experiment}
+    \end{figure}
+\end{itemize}
+The results obtained on full dataset seems to be satisfying, especially for the Random Forest Algorithm. Regarding the single dataset, the behavior seems to be the same; which means that the adopted parse and the computer algorithm performs well also on different context, such as those of the Haipeng and Kennedy project.
+Going deeper, we can analyze the evolution of each metric shown in the table. As we can see, also by applying k-cross validation there is a clear distinction between data, since the accuracy value stays always high independently from the piece of dataset used.
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/accuracy.png}
+        \caption{Accuracy evolution on full dataset}
+        \label{fig:accuracy}
+    \end{figure}
+It's clear how other metrics can be used here to assess the quality of produced models, but for didactic purpose we limite our study to this.
+\section{Conclusions}
+The aim of the project has been partially achieved, in particular we've developed a kind of ML Pipeline that follows the MLOps paradigm, where we distinguish the training phase from the Inference phase. In particular, the inference phase hasn't been covered by this project. Some study on MLFlow have been conducted, in particular we've tried to use the Model function of this framework to store the created models without any success due to problems related to database issues.
 
-\section{Methodology}
-In order to implement the tool, we've decided to follow each of these steps:
-\begin{enumerate}
-\item Consider the current state of art in order to retrieve useful informations. This step is important to produce knowledge to better perform the next steps;
-\item Analyze the existing datasets to achieve feature engineering;
-\item Apply normalization techniques (data cleaning, data balancing);
-\item Implementation and training of a ML model by considering different approaches to find the best fit model for our problem. Looking to the context related projects is most likely that we're going to focus on a Neural Network by using Keras;
-\item Analyze, monitor and compare the results of each model by using ML Flow tool;
-\item Develop a real time tool based on this model.
-\end{enumerate}
-Clearly, all these steps will be conducted using a MLOps approach.
 
     \bibliographystyle{plain}
     \bibliography{biblio_ref}
