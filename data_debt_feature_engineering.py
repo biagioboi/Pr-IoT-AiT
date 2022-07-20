@@ -23,7 +23,8 @@ for dataset_dir in dir_list:  # foreach csv file
 
 
 
-# In order to proceed with preprocessing phase we need to check that null values are only related to content_type
+# In order to proceed with preprocessing phase we need to check that null values
+# are only related to content_type
 # Change each null value with 0.0, in order to avoid problems
 # Instead, the rows which contains null values are inserted in the message for the data engineer and deleted.
 
@@ -47,39 +48,17 @@ for y in dataset:
             new_values.append(value)
     dataset[y].update({'content_type': new_values})
 
+
 # Feature Engineering
 for y in dataset:
     dataset[y] = dataset[y].drop(columns=['date', 'dstip', 'synchronized'])
     dataset[y] = dataset[y].drop(dataset[y][dataset[y]['class'] == 'ack'].sample(frac=0.95).index)
 
-
-print(dataset['biagio_boi'])
-
-labels = []
-y = []
-classes = dataset['sean_kennedy']['class'].value_counts()
-for label, num_items in classes.items():
-  labels.append(label)
-  y.append(num_items)
-
-plt.pie(y, labels = labels)
-plt.show()
 # store the three dataset individually and then store the full dataset
 to_concat = []
 for y in dataset:
     dataset[y].to_csv("datasets/full_dataset/" + y + ".csv", index=False)
     to_concat.append(dataset[y])
 full_dataset = pd.concat(to_concat, ignore_index=True)
-
 full_dataset = full_dataset.drop(full_dataset[full_dataset['class'] == 'expected'].sample(frac=0.85).index)
-
 full_dataset.to_csv("datasets/full_dataset/full_dataset.csv", index=False)
-labels = []
-y = []
-classes = full_dataset['class'].value_counts()
-for label, num_items in classes.items():
-    labels.append(label)
-    y.append(num_items)
-plt.pie(y, labels = labels)
-plt.show()
-

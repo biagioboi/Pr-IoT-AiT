@@ -140,7 +140,46 @@ Anyway, a final check has been introduced if some new technical modification hap
 \end{itemize}
 \subsection{Feature Engineering}
 After solved problem on structure, quality and integrity of data captured; we will now discuss about the feature engineering process achieved. As first step we checked if data contains feature that are not relevant for the aim of our project - in particular, the date of packet capture and the destination ip seems to be strictly related to the particular instance of the packet; for this reason we removed these feature.
-Furthermore, after conducting an analysis that considers the feature distribution, we've decided to remove the synchronization feature since there is no packet captured without synchronization. This clear behavior of \textit{univariate feature removal} is caused by the Echo Dot architecture, which does not admin any data transferring without Amazon account association. This last consideration, let us think that this feature might be directly removed from the feature captured at parsing time since it is totally not relevant.
+Furthermore, after conducting an analysis that considers the feature distribution, we've decided to remove the synchronization feature since there is no packet captured without synchronization. This clear behavior of \textit{low variance removal} is caused by the Echo Dot architecture, which does not admit any data transferring without Amazon account association. This last consideration, let us think that this feature might be directly removed from the feature captured at parsing time since it is totally not relevant.
+Once we removed the not relevant feature, we need to balance the dataset; since we're working with three different structure dataset they are really diverse among them.
+
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/biagio_boi.png}
+        \caption{Distribution of Biagio Boi dataset}
+        \label{fig:parser}
+    \end{figure}
+    
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/haipeng_li.png}
+        \caption{Distribution of Haipeng Li dataset}
+        \label{fig:parser}
+    \end{figure}
+    
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/sean_kennedy.png}
+        \caption{Distribution of Sean Kennedy dataset}
+        \label{fig:parser}
+    \end{figure}
+A direct application of SMOTE technique is useless at this time since there are too much diversity in data distribution. For this reason do some considerations on these particular instances, that might be true in general:
+\begin{itemize}
+\item Since we have a lot of ack packets in all three datasets we apply some reduction technique to truncate these data (basically an ack packet is just a confirmation of the data sent from the Echo Dot, which is not relevant for our purpose) by applying 80\% deletion.
+\item Another class which is too many present is the expected one; in Biagio Boi dataset this is not true since he seems to collect a good variety of packets among the other classes, specifically for the purpose. The other two datasets, instead, since have collected data from a normal conversation context have a lot of these packets. We can reasonably thinking that this is the most likely frequent dataset during collection phase, so we truncate 85\% of these packets resulting from the union of all three datasets.
+\end{itemize}
+The following pie chart shows the new distribution of the conjunction of all three dataset after applying deletion techniques.
+
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/final.png}
+        \caption{Distribution of final dataset}
+        \label{fig:parser}
+    \end{figure}
+    
+Now, after deleting the extra data, which are not good for our purpose, we can now apply SMOTE technique to better balance the final dataset.
+\begin{figure}[h!]
+        \includegraphics[width=0.8\linewidth]{img/final_smote.png}
+        \caption{Distribution of final dataset after applying SMOTE}
+        \label{fig:parser}
+    \end{figure}
+
 \section{Methodology}
 In order to implement the tool, we've decided to follow each of these steps:
 \begin{enumerate}
