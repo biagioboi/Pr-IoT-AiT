@@ -11,7 +11,7 @@ from sklearn.svm import LinearSVC
 import mlflow
 import mlflow.sklearn
 
-final_dataset = pd.read_csv("datasets//full_dataset//full_dataset.csv")
+final_dataset = pd.read_csv("datasets/full_dataset/full_dataset.csv")
 X = final_dataset.iloc[:, 0:7].values
 y = final_dataset.iloc[:, 7].values
 
@@ -50,8 +50,9 @@ for model in models:
             classifier.fit(X_train, y_train)
             y_pred = classifier.predict(X_test)
             (precis, rec, f1) = eval_metrics(y_test, y_pred)
-            for key, param in model['params']:
-                mlflow.log_param(key, param)
+            for element in model['params']:
+                for key, param in element.items():
+                    mlflow.log_param(key, param)
             mlflow.log_metric("precision", precis)
             mlflow.log_metric("recall", rec)
             mlflow.log_metric("f1", f1)
