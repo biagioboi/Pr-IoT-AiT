@@ -3,6 +3,7 @@ import csv
 import pyshark
 from datetime import date
 from pathlib import Path
+import command
 
 spotify_ip = None
 stream_hour = {}
@@ -121,4 +122,6 @@ if __name__ == "__main__":
                 writer.writerow(['date', 'length', 'dstip', 'dstport', 'highest_layer', 'delta', 'ack_flag', 'microphone', 'content_type', 'synchronized', 'class'])
                 for packet in capture:
                     filter_packets(packet, mac_address, writer, mic_status, 1)
+
+    res = command.run(['python3 data_debt_feature_engineering.py'])
 

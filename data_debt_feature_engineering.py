@@ -62,3 +62,4 @@ for y in dataset:
 full_dataset = pd.concat(to_concat, ignore_index=True)
 full_dataset = full_dataset.drop(full_dataset[full_dataset['class'] == 'expected'].sample(frac=0.85).index)
 full_dataset.to_csv("datasets/full_dataset/full_dataset.csv", index=False)
+res = command.run(['python3 mlflow_logger.py'])
